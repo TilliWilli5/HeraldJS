@@ -1,12 +1,10 @@
 function LiveTV()
 {
     //debugger;
-    var allDMSG = document.querySelector("#commentsblock").querySelectorAll("table[id^='dmsg']");
-    // var all = document.querySelector("#commentsblock").querySelectorAll("table[id^='msg'] td");
-    var messages = Array.prototype.map.call(allDMSG, function(pItem){
+    var all = document.querySelector("#commentsblock").querySelectorAll("table[id^='dmsg']");
+    var messages = Array.prototype.map.call(all, function(pItem){
         var _result = {author:"", article:""};
         _result.author = pItem.querySelector(".comment nobr a").textContent.trim();
-        //var msg = pItem
         var checkCensured = pItem.querySelector("span[id^='censured']");
         if(checkCensured)
         {
