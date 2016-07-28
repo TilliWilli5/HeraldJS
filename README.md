@@ -4,7 +4,7 @@
 
 WebSpeech easy-to-use, light-weight framework
 
-<center>![HerzLion](https://github.com/TilliWilli5/HeraldJS/blob/master/Resources/HerzLion1.png?raw=true)</center>
+<center>![HerzLion](https://github.com/TilliWilli5/HeraldJS/blob/master/Resources/UI/HerzLion1.png?raw=true)</center>
 
 ### **HOWTO**
 ---
@@ -35,9 +35,13 @@ My Homepage: [TilliWilli Production](https://tilliwilli5.github.io/)
 ---
 
 1. Найти векторный геральдический герб с трубами, львами и щитом (цвета синий, желтый и немного красного). Цвета должны быть яркими и чёткими как на этой фотке https://octodex.github.com/images/yaktocat.png
+2. Объекты типа herald должны наследовать от EventEmitter чтобы была возможность делать так herald.addEventListener("OnVoicesLoaded", ()=>{});
+3. Использовать последнюю фишку ES6 стандарта генераторы для последовательного чтения целикого текста переданного Геральду и побитого им на куски
+4. Необходимо придумать парсер для ссылок потом что очень долго читает и может оборваться цепочка
 
 ### **IDEAS/JUSTGOODIDEAS/IDEASSTREAM**
 ---
 
 1. Для облегчения ориентирования между разными коммитами можно снабжать каждый ничего незначащими сообщения зато крутыми/забавными/запоминающимися
 2. Маскотом будет Герцог Лион (HerzLion)
+3. Выстроить четкую систему поверх AAAStandard использовать гералдику для условного обозначения зависимостей между модулями (ака отношения между вассал<->сюзерен) 

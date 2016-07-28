@@ -14,14 +14,11 @@ CBase.core.isDefault = true;
 //
 CBase.prototype.Initialize = function(pCore)
 {
+	Object.assign(this, this.constructor.core);
 	if(pCore)
 	{
 		Object.assign(this, pCore);
 		this.isDefault = false;
-	}
-	else
-	{
-		Object.assign(this, this.constructor.core);
 	}
 };
 CBase.prototype.Setup = function(pCore)
