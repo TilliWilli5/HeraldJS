@@ -1,8 +1,25 @@
-function CHerald(pCore)
-{
+// function CHerald(pCore)
+// {
+//     this.Initialize(pCore);
+//     this.voices = [];
+//     this.AddListener("VoicesLoaded", function(){console.log("[Herald]: Voices loaded");});
+//     // this.OnVoicesLoaded = function(){console.log("[Herald]: Voices loaded");};
+//     var loadVoicesTimer = setInterval(function(pSelf){
+//         pSelf.voices = speechSynthesis.getVoices();
+//         if(pSelf.voices.length != 0)
+//         {
+//             clearInterval(loadVoicesTimer);
+//             pSelf.Emit("VoicesLoaded");
+//         }
+//     }, 1, this);
+// };
+// //Настройка наследования
+// CHerald.prototype = Object.create(CEventEmitter.prototype);
+// CHerald.prototype.constructor = CHerald;
+var CHerald = CEventEmitter.Extend(function CHerald(pCore){
     this.Initialize(pCore);
     this.voices = [];
-    this.AddListener("VoicesLoaded", function(){console.log("[Herald]: Voices loaded");});
+    this.AddListenerOnce("VoicesLoaded", function(){console.log("[Herald]: Voices loaded");});
     // this.OnVoicesLoaded = function(){console.log("[Herald]: Voices loaded");};
     var loadVoicesTimer = setInterval(function(pSelf){
         pSelf.voices = speechSynthesis.getVoices();
@@ -12,10 +29,7 @@ function CHerald(pCore)
             pSelf.Emit("VoicesLoaded");
         }
     }, 1, this);
-};
-//Настройка наследования
-CHerald.prototype = Object.create(CEventEmitter.prototype);
-CHerald.prototype.constructor = CHerald;
+});
 //Статические функции самого класса
 CHerald.textOverflowDecision = {
     donothing:0,//мы полностью доверяем поставщику фраз - никаких преобразований ненадо - потому что фразы точно не превышают норм по длине
@@ -24,8 +38,8 @@ CHerald.textOverflowDecision = {
     cutappend:3//фраза будет усечена до нужной длинны и будет добавлен afterwords, могут обрезаться слова
 };
 //Начало описания core класса
-CHerald.core = {};
-CHerald.core.isDefault = true;
+// CHerald.core = {};
+// CHerald.core.isDefault = true;
 CHerald.core.lang = "";
 CHerald.core.text = "";
 CHerald.core.pitch = 1;

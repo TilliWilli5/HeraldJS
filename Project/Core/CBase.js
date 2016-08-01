@@ -6,6 +6,57 @@ function CBase(pCore)
     this.Initialize(pCore);
 };
 // module.exports = CBase;
+//Статические функции самого класса
+CBase.parentClass = null;
+CBase.Extend = function(pConstructor, pSuppressMode)
+{
+	var newClassConstructor;
+	if(typeof pConstructor === "function")
+	{
+		newClassConstructor = pConstructor;
+		newClassConstructor.prototype = Object.create(this.prototype);
+		newClassConstructor.prototype.constructor = pConstructor;
+	}
+	else if(typeof pConstructor === "string")
+	{
+		newClassConstructor = function(pCore){
+			this.Initialize(pCore);
+		};
+		newClassConstructor.name = pConstructor;
+		newClassConstructor.prototype = Object.create(this.prototype);
+		newClassConstructor.prototype.constructor = newClassConstructor;
+	}
+	newClassConstructor.parentClass = this;
+	newClassConstructor.core = {};
+	//pSuppressMode == false - не наследовать core в новый класс
+	if(!pSuppressMode)
+		Object.assign(newClassConstructor.core, this.core);
+	newClassConstructor.Extend = this.Extend;
+	newClassConstructor.ParentClass = this.ParentClass;
+	newClassConstructor.ParentClassName = this.ParentClassName;
+	newClassConstructor.ReplaceCore = this.ReplaceCore;
+	newClassConstructor.LoadCore = this.LoadCore;
+	return newClassConstructor;
+};
+CBase.ParentClass = function()
+{
+	return this.parentClass;
+};
+CBase.ParentClassName = function()
+{
+	if(this.parentClass === null)
+		return null;
+	else
+		return this.parentClass.name;
+};
+CBase.ReplaceCore = function(pCore)
+{
+	this.core = pCore;
+};
+CBase.LoadCore = function(pCore)
+{
+	Object.assign(this.core, pCore);
+};
 //Настройки по умолчанию для всех экземпляров класса кроются в этом ядре
 //
 CBase.core = {};
@@ -29,21 +80,21 @@ CBase.prototype.Setup = function(pCore)
 		this.isDefault = false;
 	}
 };
-CBase.prototype.GetClass = function()
+CBase.prototype.Class = function()
 {
     return this.constructor;
 };
-CBase.prototype.GetClassName = function()
+CBase.prototype.ClassName = function()
 {
     return this.constructor.name;
 };
-CBase.prototype.GetParentClass = function()
+CBase.prototype.ParentClass = function()
 {
 	// return this.constructor.prototype.__proto__.constructor;
 	//code below has the same effect
 	return this.__proto__.__proto__.constructor;
 };
-CBase.prototype.GetParentClassName = function()
+CBase.prototype.ParentClassName = function()
 {
 	// return this.constructor.prototype.__proto__.constructor.className;
 	return this.__proto__.__proto__.constructor.name;
